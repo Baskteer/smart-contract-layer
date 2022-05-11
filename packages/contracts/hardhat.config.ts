@@ -6,6 +6,7 @@ import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
+import "hardhat-watcher";
 
 dotenv.config();
 
@@ -22,8 +23,27 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 
+const settings = {
+  optimizer: {
+    enabled: true,
+    runs: 1000,
+  },
+  outputSelection: {
+    "*": {
+      "*": ["storageLayout"],
+    },
+  },
+};
+
 const config: HardhatUserConfig = {
-  solidity: "0.8.4",
+  solidity: {
+    compilers: [
+      { version: "0.8.4", settings },
+      { version: "0.9.0", settings },
+      { version: "0.5.16", settings },
+      { version: "0.6.6", settings },
+    ],
+  },
   networks: {
     ropsten: {
       url: process.env.ROPSTEN_URL || "",
@@ -37,6 +57,26 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
+  },
+  watcher: {
+    compile: {
+      tasks: ["compile"],
+    },
+    // run: {
+    //   tasks: [
+    //     {
+    //       command: "run",
+    //       params: { script: "scripts/deploy.ts", network: "bsc-mainnet" },
+    //     },
+    //   ],
+    //   files: ["./contracts", "./scripts"],
+    //   verbose: true,
+    // },
+    test: {
+      tasks: ["test"],
+      files: ["./contracts", "./test"],
+      verbose: true,
+    },
   },
 };
 
