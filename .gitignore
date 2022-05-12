@@ -1,12 +1,2 @@
-!.yarn/cache
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
-.yarn
-artifacts
-cache
+.env
 node_modules
-typechain
-.pnp.*

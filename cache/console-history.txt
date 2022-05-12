@@ -1,0 +1,15 @@
+await contract.owner()
+await contract.transfer("0x07547AFC002CfAc145c374c09101797D66629bea", 10)
+await contract.transfer("0x0", 10)
+await contract.transfer("0x", 10)
+await contract.totalSupply()
+const contract = await MyContract.attach("0x5875869cFAb21E8b75e6023300D51F6012A83377")
+const contract = await MyContract.attach(
+const MyContract = await ethers.getContractFactory("Token");
+const MyContract = await ethers.getContractFactory("MyContract");
+token = await Token.attach("0x5FbDB2315678afecb367f032d93F642f64180aa3")
+const token = await Token.attach("0x5FbDB2315678afecb367f032d93F642f64180a
+const token = await Token.attach("0x5FbDB2315678afecb367f032d93F642f64180aa3")
+ethers
+Token
+const Token = await ethers.getContractFactory("Token")
