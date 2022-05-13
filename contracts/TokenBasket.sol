@@ -14,26 +14,29 @@ contract TokenBasket is Ownable {
         swapRouter = _swapRouter;
     }
 
-    function swapExactInputSingle(uint24 poolFee, uint256 amountIn, address tokenIn, address tokenOut) external returns (uint256 amountOut) {
+    function swapExactInputSingle(uint24 poolFee, address tokenIn, address[] calldata tokensOut, uint256[] calldata amountsIn, uint256 totalAmount) external {
+
         // Transfer the specified amount of tokenIn to this contract.
-        TransferHelper.safeTransferFrom(tokenIn, msg.sender, address(this), amountIn);
+        TransferHelper.safeTransferFrom(tokenIn, msg.sender, address(this), totalAmount);
 
         // Approve the router to spend tokenIn.
-        TransferHelper.safeApprove(tokenIn, address(swapRouter), amountIn);
+        TransferHelper.safeApprove(tokenIn, address(swapRouter), totalAmount);
 
-        ISwapRouter.ExactInputSingleParams memory params =
-            ISwapRouter.ExactInputSingleParams({
-                tokenIn: tokenIn,
-                tokenOut: tokenOut,
-                fee: poolFee,
-                recipient: msg.sender,
-                deadline: block.timestamp,
-                amountIn: amountIn,
-                amountOutMinimum: 0,
-                sqrtPriceLimitX96: 0
-            });
+        for (uint i = 0; i < tokensOut.length; i++) {
+            ISwapRouter.ExactInputSingleParams memory params =
+                ISwapRouter.ExactInputSingleParams({
+                    tokenIn: tokenIn,
+                    tokenOut: tokensOut[i],
+                    fee: poolFee,
+                    recipient: msg.sender,
+                    deadline: block.timestamp + 15,
+                    amountIn: amountsIn[i],
+                    amountOutMinimum: 1,
+                    sqrtPriceLimitX96: 0
+                });
 
-        // The call to `exactInputSingle` executes the swap.
-        amountOut = swapRouter.exactInputSingle(params);
+            // The call to `exactInputSingle` executes the swap.
+            swapRouter.exactInputSingle(params);
+        }
     }
 }

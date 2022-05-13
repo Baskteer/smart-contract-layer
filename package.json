@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "npx hardhat compile",
-    "deploy": "npx hardhat run scripts/deploy.js --network ropsten"
+    "deploy-rinkeby": "npx hardhat run scripts/deploy.js --network rinkeby",
+    "deploy-ropsten": "npx hardhat run scripts/deploy.js --network ropsten",
+    "exec": "node client_demo/client_demo.js"
   },
   "keywords": [],
   "author": "",
