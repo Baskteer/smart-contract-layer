@@ -7,6 +7,7 @@
     "build": "npx hardhat compile",
     "deploy-rinkeby": "npx hardhat run scripts/deploy.js --network rinkeby",
     "deploy-ropsten": "npx hardhat run scripts/deploy.js --network ropsten",
+    "deploy-polygon": "npx hardhat run scripts/deploy.js --network polygon",
     "exec": "node client_demo/client_demo.js"
   },
   "keywords": [],
@@ -23,6 +24,7 @@
     "@openzeppelin/contracts": "^4.6.0",
     "@uniswap/sdk": "^3.0.3",
     "@uniswap/v3-periphery": "^1.4.1",
-    "dotenv": "^14.3.2"
+    "dotenv": "^14.3.2",
+    "envfile": "^6.17.0"
   }
 }

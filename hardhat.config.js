@@ -11,6 +11,7 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY;
 // Be aware of NEVER putting real Ether into testing accounts
 const NODE_RINKEBY = process.env.ETH_NODE_URI_RINKEBY
 const NODE_ROPSTEN = process.env.ETH_NODE_URI_ROPSTEN
+const NODE_POLYGON = process.env.ETH_NODE_URI_POLYGON_TEST
 
 module.exports = {
   solidity: {
@@ -23,6 +24,10 @@ module.exports = {
     },
     rinkeby: {
       url: NODE_RINKEBY,
+      accounts: [PRIVATE_KEY]
+    },
+    polygon: {
+      url: NODE_POLYGON,
       accounts: [PRIVATE_KEY]
     },
     hardhat: {
